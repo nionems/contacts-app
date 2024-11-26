@@ -25,6 +25,10 @@ const Contacts = () => {
     setSelectedContact(contact);
   };
 
+  const handleCloseDetails = () => {
+    setSelectedContact(null); // Close the contact details
+  };
+
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
@@ -58,6 +62,9 @@ const Contacts = () => {
           <p><strong>Website:</strong> <a href={`http://${selectedContact.website}`} target="_blank" rel="noopener noreferrer">{selectedContact.website}</a></p>
           <p><strong>Company:</strong> {selectedContact.company.name}</p>
           <p><strong>Address:</strong> {`${selectedContact.address.street}, ${selectedContact.address.city}`}</p>
+
+          {/* Close button */}
+          <button className="close-button" onClick={handleCloseDetails}>Close</button>
         </div>
       )}
     </div>
