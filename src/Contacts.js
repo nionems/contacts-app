@@ -1,26 +1,32 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import './Contacts.css'; // Custom styling
+import React, { useState, useEffect } from "react"; // Import React and hooks
+import axios from "axios"; // Import axios for API requests
+import './Contacts.css'; // Import styling
 
 const Contacts = () => {
-  const [contacts, setContacts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedContact, setSelectedContact] = useState(null);
-  const [page, setPage] = useState(1);
-  const [totalContacts, setTotalContacts] = useState(0);
-  const [error, setError] = useState(null);
+  // State variables
+  const [contacts, setContacts] = useState([]); // Stores fetched contacts
+  const [loading, setLoading] = useState(true); // Loading state
+  const [selectedContact, setSelectedContact] = useState(null); // Stores the contact selected for details view
+  const [page, setPage] = useState(1); // Tracks current page for pagination
+  const [totalContacts, setTotalContacts] = useState(0); // Total number of contacts available
+  const [error, setError] = useState(null); // Stores error message, if any
 
-  const contactsPerPage = 50;
+  const contactsPerPage = 100; // Number of contacts to fetch per page
 
-  // Fetch contacts from API with pagination
+  // Fetch contacts from API whenever the page changes
   useEffect(() => {
     axios
       .get(`https://jsonplaceholder.typicode.com/users?_page=${page}&_limit=${contactsPerPage}`)
       .then((response) => {
         const sortedContacts = response.data.sort((a, b) => a.name.localeCompare(b.name));
-        setContacts((prevContacts) => [...prevContacts, ...sortedContacts]);
+        setContacts((prevContacts) => {
+          const uniqueContacts = sortedContacts.filter(
+            (contact) => !prevContacts.some((prev) => prev.id === contact.id)
+          );
+          return [...prevContacts, ...uniqueContacts];
+        });
+        setTotalContacts(parseInt(response.headers['x-total-count'], 10));
         setLoading(false);
-        setTotalContacts(parseInt(response.headers['x-total-count']));
       })
       .catch((error) => {
         console.error("Error fetching contacts:", error);
@@ -28,32 +34,38 @@ const Contacts = () => {
         setError("Failed to load contacts.");
       });
   }, [page]);
+  
 
+  // Handles clicking on a contact to view details
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
   };
 
+  // Closes the contact details modal
   const handleCloseDetails = () => {
     setSelectedContact(null);
   };
 
+  // Loads more contacts by incrementing the page number
   const loadMoreContacts = () => {
     if (contacts.length < totalContacts) {
       setPage((prevPage) => prevPage + 1);
     }
   };
 
+  // Show loading spinner if data is still being fetched
   if (loading && contacts.length === 0) {
     return <div className="loading">Loading...</div>;
   }
 
+  // Display error message if API call fails
   if (error) {
     return <div className="error-message">{error}</div>;
   }
 
   return (
     <div className="contacts-container">
-      {/* Header with logo and title */}
+      {/* Header section with logo and title */}
       <header className="header">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ7xr2l_rq4bQDHGcPubnaa03fUgnveQJRQg&s"
@@ -63,20 +75,20 @@ const Contacts = () => {
         <h1 className="title">Contact List</h1>
       </header>
 
-      {/* Display contacts list */}
+      {/* List of contacts */}
       <div className="contacts-list">
         {contacts.map((contact) => (
           <div
             className="contact-card"
-            key={contact.id}
-            onClick={() => handleContactClick(contact)}
+            key={contact.id} // Unique key for each contact
+            onClick={() => handleContactClick(contact)} // Open details on click
           >
             <img
               className="contact-avatar"
-              src={`https://i.pravatar.cc/150?img=${contact.id}`}
+              src={`https://i.pravatar.cc/150?img=${contact.id}`} // Generate avatar
               alt={`${contact.name}'s Avatar`}
             />
-            <h3>{contact.name}</h3>
+            <h3>{contact.name}</h3> {/* Display contact name */}
           </div>
         ))}
       </div>
@@ -108,4 +120,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Contacts; // Export the Contacts component
