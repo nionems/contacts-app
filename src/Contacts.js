@@ -60,7 +60,7 @@ const Contacts = () => {
           alt="Company Logo"
           className="logo"
         />
-        <h1 className="title">Contact</h1>
+        <h1 className="title">Contact List</h1>
       </header>
 
       {/* Display contacts list */}

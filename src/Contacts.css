@@ -6,28 +6,26 @@ body {
   font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
 }
-
 /* Header Styling */
 .header {
   display: flex;
   align-items: center;
-  background-color: rgba(138, 24, 61, 1);
+  background-color:rgba(138, 24, 61, 1);
+  border-color: #ffbf49;
+  border-style:groove;
   padding: 10px;
 }
-
 .logo {
-  width: 50px;
+  width: 70px;
   height: auto;
   margin-right: 20px;
+  border-radius: 50px;
 }
-
 .title {
   color: #ffbf49;
   font-size: 20px;
-  font-weight: bold;
-  
+  font-weight: bold; 
 }
-
 /* Contacts List Styling */
 .contacts-list {
   display: grid;
@@ -38,12 +36,13 @@ body {
   margin: 0 auto;
   padding: 10px;
   box-shadow: #a61919;
+
 }
 
 /* Contact Card Styling */
 .contact-card {
   background-color: #fff;
-  padding: 1px;
+  padding: 5px;
   border-radius: 10px;
   box-shadow: 0 6px 15px rgba(138, 24, 61, 0.5);
   cursor: pointer;
@@ -51,6 +50,52 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+/* Ensure cards are responsive */
+@media (max-width: 768px) {
+  .contacts-list {
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); /* Adjust for smaller screens */
+    font-size: 10px;
+   
+    .contact-card h3 {
+      color: #ffbf49;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .contact-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(138, 24, 61, 0.5);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  max-width: 130px;
+  margin: -3px; /* Add space between cards */
+  padding:0;
+  
+}
+.contact-details {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 218, 221, 0.8)); /* Gradient background */
+  padding: 0px;
+  border-radius: 20px; /* Rounded edges */
+  box-shadow: 0 8px 20px rgba(138, 24, 61, 0.6), 0 4px 10px rgba(255, 161, 0, 0.5); /* Layered shadow */
+  max-width: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; 
+  width: 10%; 
+  overflow-y: auto;
+  backdrop-filter: blur(10px); /* Glass-like effect */
+  border: 2px solid rgba(255, 161, 0, 0.8); /* Stylish border */
+  animation: popIn 0.3s ease-out; /* Add an animation */
+}
+  }
+  
+  
 }
 
 .contact-avatar {
@@ -75,19 +120,35 @@ body {
 
 /* Contact Details Styling */
 .contact-details {
-  background-color: rgba(255, 255, 255, 0.8); /* White background with slight transparency */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(138, 24, 61, 0.5);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 218, 221, 0.8)); /* Gradient background */
+  padding: 1px;
+  border-radius: 20px; /* Rounded edges */
+  box-shadow: 0 8px 20px rgba(138, 24, 61, 0.6), 0 4px 10px rgba(255, 161, 0, 0.5); /* Layered shadow */
   max-width: 400px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1000; /* Ensure it's above other content */
-  width: 80%; /* Adjust width for responsiveness */
-  overflow-y: auto; /* Allow scrolling if content overflows */
+  z-index: 1000; 
+  width: 90%; 
+  overflow-y: auto;
+  backdrop-filter: blur(10px); /* Glass-like effect */
+  border: 2px solid rgba(255, 161, 0, 0.8); /* Stylish border */
+  animation: popIn 0.3s ease-out; /* Add an animation */
 }
+
+/* Animation for smooth appearance */
+@keyframes popIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
 
 .contact-details h2 {
   margin-bottom: 5px;
@@ -110,6 +171,16 @@ body {
 .close-button:hover {
   background-color: #a61919;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 /* Footer Styling */
