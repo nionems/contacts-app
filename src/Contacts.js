@@ -10,7 +10,7 @@ const Contacts = () => {
   const [totalContacts, setTotalContacts] = useState(0);
   const [error, setError] = useState(null);
 
-  const contactsPerPage = 10;
+  const contactsPerPage = 50;
 
   // Fetch contacts from API with pagination
   useEffect(() => {

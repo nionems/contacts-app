@@ -54,9 +54,12 @@ body {
 
 /* Ensure cards are responsive */
 @media (max-width: 768px) {
-  .contacts-list {
-    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); /* Adjust for smaller screens */
-    font-size: 10px;
+  .contact-avatar {
+    width: 100px;
+    height: 10px;
+    border-radius: 10%;
+  }
+  
    
     .contact-card h3 {
       color: #ffbf49;
@@ -64,17 +67,22 @@ body {
       font-weight: 600;
     }
     .contact-card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(138, 24, 61, 0.5);
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  align-items: center;
-  max-width: 130px;
-  margin: -3px; /* Add space between cards */
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(138, 24, 61, 0.5);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: block; /* Ensures each card is on a new line */
+      margin: 10px 0; /* Adds space between cards */
+      padding: 0px; /* Adds padding for visual balance */
+      width: 90%; /* Takes up full width of the container */
+    }
+    
+    .contacts-list {
+      display: block; /* Stack cards vertically */
+      padding: 20px;
+    }
   
-}
 .contact-details {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 218, 221, 0.8)); /* Gradient background */
   padding: 0px;
@@ -91,11 +99,18 @@ body {
   backdrop-filter: blur(10px); /* Glass-like effect */
   border: 2px solid rgba(255, 161, 0, 0.8); /* Stylish border */
   animation: popIn 0.3s ease-out; /* Add an animation */
-
-}
+ 
+  .contact-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
   }
   
 }
+
+  }
+  
+
 
 .contact-avatar {
   width: 40px;
@@ -169,6 +184,11 @@ body {
 
 .close-button:hover {
   background-color: #a61919;
+}
+.contact-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 
