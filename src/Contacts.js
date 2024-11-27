@@ -5,54 +5,83 @@ import './Contacts.css'; // Custom styling
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedContact, setSelectedContact] = useState(null); // State for selected contact
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalContacts, setTotalContacts] = useState(0);
+  const [error, setError] = useState(null);
 
-  // Fetch contacts data from JSONPlaceholder API
+  const contactsPerPage = 10;
+
+  // Fetch contacts from API with pagination
   useEffect(() => {
     axios
-      .get("https://jsonplaceholder.typicode.com/users")
+      .get(`https://jsonplaceholder.typicode.com/users?_page=${page}&_limit=${contactsPerPage}`)
       .then((response) => {
-        setContacts(response.data);
+        const sortedContacts = response.data.sort((a, b) => a.name.localeCompare(b.name));
+        setContacts((prevContacts) => [...prevContacts, ...sortedContacts]);
         setLoading(false);
+        setTotalContacts(parseInt(response.headers['x-total-count']));
       })
       .catch((error) => {
         console.error("Error fetching contacts:", error);
         setLoading(false);
+        setError("Failed to load contacts.");
       });
-  }, []);
+  }, [page]);
 
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
   };
 
   const handleCloseDetails = () => {
-    setSelectedContact(null); // Close the contact details
+    setSelectedContact(null);
   };
 
-  if (loading) {
+  const loadMoreContacts = () => {
+    if (contacts.length < totalContacts) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  if (loading && contacts.length === 0) {
     return <div className="loading">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
   }
 
   return (
     <div className="contacts-container">
-      <h1>Contacts</h1>
-      
-      {/* Display list of contacts */}
+      {/* Header with logo and title */}
+      <header className="header">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ7xr2l_rq4bQDHGcPubnaa03fUgnveQJRQg&s"
+          alt="Company Logo"
+          className="logo"
+        />
+        <h1 className="title">Contact</h1>
+      </header>
+
+      {/* Display contacts list */}
       <div className="contacts-list">
         {contacts.map((contact) => (
           <div
             className="contact-card"
             key={contact.id}
-            onClick={() => handleContactClick(contact)} // Handle click event
+            onClick={() => handleContactClick(contact)}
           >
+            <img
+              className="contact-avatar"
+              src={`https://i.pravatar.cc/150?img=${contact.id}`}
+              alt={`${contact.name}'s Avatar`}
+            />
             <h3>{contact.name}</h3>
-            <p><strong>Email:</strong> {contact.email}</p>
-            <p><strong>Phone:</strong> {contact.phone}</p>
           </div>
         ))}
       </div>
 
-      {/* Conditionally render contact details */}
+      {/* Contact details modal */}
       {selectedContact && (
         <div className="contact-details">
           <h2>Contact Details</h2>
@@ -62,11 +91,19 @@ const Contacts = () => {
           <p><strong>Website:</strong> <a href={`http://${selectedContact.website}`} target="_blank" rel="noopener noreferrer">{selectedContact.website}</a></p>
           <p><strong>Company:</strong> {selectedContact.company.name}</p>
           <p><strong>Address:</strong> {`${selectedContact.address.street}, ${selectedContact.address.city}`}</p>
-
-          {/* Close button */}
           <button className="close-button" onClick={handleCloseDetails}>Close</button>
         </div>
       )}
+
+      {/* Load More Button */}
+      {contacts.length < totalContacts && (
+        <button className="load-more-button" onClick={loadMoreContacts}>Load More</button>
+      )}
+
+      {/* Footer */}
+      <footer className="footer">
+        <p>&copy; {new Date().getFullYear()} Lionel Coevoet. All rights reserved.</p>
+      </footer>
     </div>
   );
 };

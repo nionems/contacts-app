@@ -1,93 +1,125 @@
-.contacts-container {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f4f6f9;
-  }
+/* Body Styling */
+body {
+  background-color: rgba(138, 24, 61, 1);
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+/* Header Styling */
+.header {
+  display: flex;
+  align-items: center;
+  background-color: rgba(138, 24, 61, 1);
+  padding: 10px;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.title {
+  color: #ffbf49;
+  font-size: 20px;
+  font-weight: bold;
   
-  h1 {
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .contacts-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
-  }
-  
-  .contact-card {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 80px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  
-  .contact-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .contact-card h3 {
-    color: #007bff;
-    margin-bottom: 10px;
-  }
-  
-  .contact-card p {
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .contact-card a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .contact-card a:hover {
-    text-decoration: underline;
-  }
-  
-  .contact-details {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 80px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  .contact-details h2 {
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .contact-details p {
-    font-size: 16px;
-    color: #555;
-  }
-  
-  .loading {
-    font-size: 20px;
-    color: #007bff;
-  }
-  .close-button {
-    padding: 10px 20px;
-    margin-top: 20px;
-    background-color: #ff4444;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .close-button:hover {
-    background-color: #cc3333;
-  }
-  
-  
+}
+
+/* Contacts List Styling */
+.contacts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+  box-shadow: #a61919;
+}
+
+/* Contact Card Styling */
+.contact-card {
+  background-color: #fff;
+  padding: 1px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(138, 24, 61, 0.5);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.contact-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.contact-card h3 {
+  color: #ffbf49;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Hover Effect */
+.contact-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(255, 161, 0, 0.9);
+  background-color: rgba(138, 24, 61, 0.5);
+}
+
+/* Contact Details Styling */
+.contact-details {
+  background-color: rgba(255, 255, 255, 0.8); /* White background with slight transparency */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(138, 24, 61, 0.5);
+  max-width: 400px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; /* Ensure it's above other content */
+  width: 80%; /* Adjust width for responsiveness */
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+.contact-details h2 {
+  margin-bottom: 5px;
+}
+
+.contact-details p {
+  margin: 5px 0;
+}
+
+.close-button {
+  background-color: #ffbf49;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.close-button:hover {
+  background-color: #a61919;
+}
+
+
+/* Footer Styling */
+.footer {
+  background-color: rgba(138, 24, 61, 1);
+  color: #ffbf49;
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
