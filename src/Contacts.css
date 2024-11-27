@@ -73,7 +73,6 @@ body {
   align-items: center;
   max-width: 130px;
   margin: -3px; /* Add space between cards */
-  padding:0;
   
 }
 .contact-details {
@@ -92,9 +91,9 @@ body {
   backdrop-filter: blur(10px); /* Glass-like effect */
   border: 2px solid rgba(255, 161, 0, 0.8); /* Stylish border */
   animation: popIn 0.3s ease-out; /* Add an animation */
+
 }
   }
-  
   
 }
 
